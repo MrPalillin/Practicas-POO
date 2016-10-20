@@ -2,16 +2,12 @@ package poo;
 
 public class MaquinaVending {
 
-	preguntarPrecio(String UPC){
-		return precio;
-	}
-	consultarProducto (String UPC){
-		return boolean;
-	}
-	comprarProducto (String UPC, String tarjeta){
-		return boolean;
-	}
-	
-	
-	
+    public int preguntarPrecio(String IDProducto) {
+        return precio;
+    }
+
+    public Object comprarProducto(String IDProducto,Object TarjetaMonedero) {
+        return elemento;
+    }
+
 }
