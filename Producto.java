@@ -1,13 +1,20 @@
 package poo;
 
-public class Producto {
+/**
+ * 
+ * @author dandevi
+ * @author dancres
+ */
 
+public class Producto {
+	
 	private double precio;
 	private String nombre;
 	private int compañia;
 	private int IDProducto;
-	private int[] UPC = new int[12];
+	private static int[] UPC = new int[12];
 	private int digitoControl;
+	private int cantidad;
 	
 	/**
 	 * Inicializa el producto con sus atributos
@@ -16,17 +23,34 @@ public class Producto {
 	 * @param compañia Define la compañia a la que pertenece el producto
 	 * @param IDProducto Identificador del producto
 	 * @param digitoControl Basado en una formula
+	 * @param UPC Codigo de barras del producto
 	 */
 
-	public Producto(double precio, String nombre, String compañia, String IDProducto, int digitoControl) {
+	public Producto(double precio, String nombre, int compañia, int IDProducto, int digitoControl,int[] UPC,int cantidad) {
 		this.precio = precio;
 		this.nombre = nombre;
 		this.compañia = getCompañia(UPC);
 		this.IDProducto = getIDProducto(UPC);
 		this.digitoControl = control(UPC);
+		this.UPC=UPC;
+		this.cantidad=cantidad;
 	}
+	
+	/**
+	 * Para modificar la cantidad de los productos
+	 * @param cantidad 
+	 */
+	public void setCantidad(int cantidad){
+		this.cantidad=cantidad;
+	}
+	
+	/**
+	 * 
+	 * @param UPC
+	 * @return Codigo de la compañia
+	 */
 
-	public int getCompañia(int[] UPC) {
+	public static int getCompañia(int[] UPC) {
 		StringBuilder str = new StringBuilder();
 		for (int i = 0; i < 6; i++) {
 			str.append(UPC[i]);
@@ -34,8 +58,14 @@ public class Producto {
 		int codigoCompañia = Integer.parseInt(str.toString());
 		return codigoCompañia;
 	}
+	
+	/**
+	 * 
+	 * @param UPC
+	 * @return Identificador del producto
+	 */
 
-	public int getIDProducto(int[] UPC) {
+	public static int getIDProducto(int[] UPC) {
 		StringBuilder str = new StringBuilder();
 		for (int i = 6; i < 11; i++) {
 			str.append(UPC[i]);
@@ -43,16 +73,50 @@ public class Producto {
 		int identificador = Integer.parseInt(str.toString());
 		return identificador;
 	}
+	
+	/**
+	 * 
+	 * @return Nombre del producto
+	 */
 
 	public String getNombre() {
 		return nombre;
 	}
+	
+	/**
+	 * 
+	 * @return Precio del producto
+	 */
 
-	public int getCompañia() {
-		return compañia;
+	public double getPrecio() {
+		return precio;
 	}
+	
+	/**
+	 * 
+	 * @return Codigo UPC del producto
+	 */
+	
+	public static int[] getUPC(){
+		return UPC;
+	}
+	
+	/**
+	 * 
+	 * @return Cantidad del producto a la venta
+	 */
+	
+	public int getCantidad(){
+		return cantidad;
+	}
+	
+	/**
+	 * 
+	 * @param UPC
+	 * @return Codigo de control del producto
+	 */
 
-	public int control(int[] UPC) {
+	public static int control(int[] UPC) {
 		int s = 0, m = 0, digitoFinal = 0;
 		for (int i = 0; i < 10; i++) {
 			if (i % 2 == 0) {
